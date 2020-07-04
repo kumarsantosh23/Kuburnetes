@@ -15,7 +15,7 @@ spec:
             containers:
                 - name: nginx-container
                   image: nginx
-    replicas: 2
+    replicas: 4
     selector:
         matchLabels:
             app: myapp
