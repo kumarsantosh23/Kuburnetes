@@ -1,0 +1,10 @@
+kubectl get pods
+kubectl get nodes
+kubectl describe nodes
+kubectl describe pods
+kubectl create -f deployment-definition.yml
+kubectl apply -f deployment-definition.yml
+kubectl describe deployment
+kubectl rollout undo deployment/myapp-replicaset
+kubectl rollout status deployment/myapp-replicaset
+kubectl rollout undo deployment/myapp-replicaset
