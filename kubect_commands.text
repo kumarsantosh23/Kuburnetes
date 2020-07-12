@@ -8,3 +8,5 @@ kubectl describe deployment
 kubectl rollout undo deployment/myapp-replicaset
 kubectl rollout status deployment/myapp-replicaset
 kubectl rollout undo deployment/myapp-replicaset
+kubectl create -f service-definition.yml
+kubectl get services
