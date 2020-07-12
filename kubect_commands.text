@@ -9,4 +9,5 @@ kubectl rollout undo deployment/myapp-replicaset
 kubectl rollout status deployment/myapp-replicaset
 kubectl rollout undo deployment/myapp-replicaset
 kubectl create -f service-definition.yml
+kubectl delete service voting-service
 kubectl get services
