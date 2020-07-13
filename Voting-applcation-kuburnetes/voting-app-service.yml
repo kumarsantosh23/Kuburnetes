@@ -6,10 +6,10 @@ metadata:
        name: voting-service
        app: demo-voting-app
 spec:
+    type: ClusterIP
     ports:
     - port: 80
-      targertport: 80
-    type: ClusterIP
+      targetPort: 80
     selector:
         name: voting-app-pod
         app: demo-voting-app
