@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: jenkins-pod
+    labels:
+        app: jenkins-pod
+spec:
+    replicas: 2
+    selector:
+        matchLabels:
+            name: jenkins-pod
+            app: jenkins-app
+    template:
+        metadata:
+            name: jenkins-pod
+            labels:
+                name: jenkins-pod
+                app: jenkins-app
+        spec:
+            containers:
+            - name: jenkins-app
+              image: jenkins

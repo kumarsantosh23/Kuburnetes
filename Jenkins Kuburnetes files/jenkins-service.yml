@@ -8,5 +8,6 @@ spec:
         name: jenkins-pod
         app: jenkins-app
     ports:
-      - targetPort: 80
+      - targetPort: 8080
         port: 80
+        nodePort: 30080

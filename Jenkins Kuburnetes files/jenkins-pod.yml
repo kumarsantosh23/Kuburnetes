@@ -9,5 +9,3 @@ spec:
     containers:
     - name: jenkins-app
       image: jenkins
-      ports:
-          - containerPort: 80
