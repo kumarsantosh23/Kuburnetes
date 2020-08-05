@@ -2,6 +2,13 @@ kubectl get pods
 kubectl get nodes
 kubectl describe nodes
 kubectl describe pods
+kubectl get replicaset
+kubectl create - replicaset-definition.yml
+kubectl apply -f replicaset-defintion.yml
+kubectl edit replicaset new-replica-set
+kubectl scale --replicas=5 replicaset new-replica-set
+kubectl create deployment http-frontend --image=httpd-alpine
+kubectl scale deployment http-frontend --replicas=3
 kubectl create -f deployment-definition.yml
 kubectl apply -f deployment-definition.yml
 kubectl describe deployment
@@ -16,4 +23,17 @@ kubectl get nodes -o wide
 kubectl get services -o wide
 kubectl delete pod
 kubectl delete service
-kubectl describe service 
+kubectl describe service
+
+-----------------------------------------------------------------------------
+namespaces commands
+
+kubectl get namespace
+kubectl get pods --namespace=finance
+kubectl get deployments --namespace=finance
+kubectl delete  deployments redis  --namespace=finance
+kubectl create -f pod.yml --namespace=finance
+kubectl get pods  --namespace=finance
+kubectl get pods --all-namespaces
+kubectl config set-context $(kubectl config current-context) --namespace=default
+kubectl config set-context $(kubectl config current-context) --namespace=dev
