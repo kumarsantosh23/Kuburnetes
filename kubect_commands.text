@@ -39,3 +39,21 @@ kubectl config set-context $(kubectl config current-context) --namespace=default
 kubectl config set-context $(kubectl config current-context) --namespace=dev
 kubectl run redis --image=redis --restart=Never --dry-run -o yaml > pod.yml ( to convert it to yaml for pod )
 kubectl create  deployment nginx --image=nginx  --dry-run=client -o yaml > d.yaml ( to convert it to yaml for deployment)
+kubectl get ep webapp-service ( to see endpoint after service gets created)
+
+---------------------------------------------------------------------------------------------------------------------------------------
+IMPERATIVE COMMANDS WHICH WILL BE USEFULL TO CREATE DEFINITION YAML FILES AND RUN THINGS DIRECTLY
+
+kubectl run redis --image=redis:alpine --dry-run=client -o yaml > pod.yml
+kubectl apply pod.yml
+kubectl create deployment webapp --image=kodekloud/webapp-color --dry-run=client -o yaml > def_correct.yml
+kubectl create deployment webapp --image=kodekloud/webapp-color
+kubectl scale deployment webapp --replicas=3
+kubectl create ns dev-ns
+kubectl create deployment redis-deploy --image=redis --namespace=dev-ns
+kubectl scale deployment redis-deploy --replicas=2 --namespace=dev-ns
+kubectl run httpd --image=httpd:alpine --port=80 --expose
+kubectl create service clusterip httpd --tcp=80:80 --dry-run=client -o yaml > servoce4.yml
+kubectl expose deployment simple-webapp-deployment --type=NodePort --target-port=8080 --target-port=8080 --name=webapp-service --dry-run -o yaml > svc.yml
+kubectl run redis --image=redis --restart=Never --dry-run -o yaml > pod.yml ( to convert it to yaml for pod )
+kubectl create  deployment nginx --image=nginx  --dry-run=client -o yaml > d.yaml ( to convert it to yaml for deployment)
