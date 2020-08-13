@@ -56,4 +56,18 @@ kubectl run httpd --image=httpd:alpine --port=80 --expose
 kubectl create service clusterip httpd --tcp=80:80 --dry-run=client -o yaml > servoce4.yml
 kubectl expose deployment simple-webapp-deployment --type=NodePort --target-port=8080 --target-port=8080 --name=webapp-service --dry-run -o yaml > svc.yml
 kubectl run redis --image=redis --restart=Never --dry-run -o yaml > pod.yml ( to convert it to yaml for pod )
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Below is the imperative commands to run a deployment of nginx webserver and exposing the ports
+
 kubectl create  deployment nginx --image=nginx  --dry-run=client -o yaml > d.yaml ( to convert it to yaml for deployment)
+kubectl scale deployment nginx --replicas=6
+Use below version for services of deployment ( using nodeport as type )
+kubectl expose deployment webserver --port=80 --name web-service --dry-run=client -o yaml > service.yml
+vi service.yml and then change the type: NodePort and add nodePort: 30028 ( nodeport for example)
+kubectl apply -f service.yml
+To check if the pods are accessable to that ports do below commands
+kubectl get ep webservice
+kubectl get nodes -o wide
+curl http://nodeipaddress: 30028 ( port which we exposed in above )
