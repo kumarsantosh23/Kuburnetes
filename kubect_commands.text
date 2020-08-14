@@ -71,3 +71,11 @@ To check if the pods are accessable to that ports do below commands
 kubectl get ep webservice
 kubectl get nodes -o wide
 curl http://nodeipaddress: 30028 ( port which we exposed in above )
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Below are the commands to filter out pods/replicas/services/objects based on selectors
+
+kubectl get pods --selector env=prod
+kubectl get replicasets --selector env=prod
+kubectl get all --selector env=pod,bu=finance,tier=frontend
+kubectl get pods --selector env=pod,bu=finance,tier=frontend
