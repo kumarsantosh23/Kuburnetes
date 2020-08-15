@@ -79,3 +79,12 @@ kubectl get pods --selector env=prod
 kubectl get replicasets --selector env=prod
 kubectl get all --selector env=pod,bu=finance,tier=frontend
 kubectl get pods --selector env=pod,bu=finance,tier=frontend
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Taints and Tolerations
+
+kubectl taint nodes node01 spray=mortein:NoSchedule ( Existing pods won't terminate but won't allow new pods to be assigned )
+kubectl describe nodes master | grep Taint
+kubectl taint nodes node01 spray=mortein:NoSchedule-
+kubectl taint nodes node01 app=mos:NoExecute ( This will terminate the pods if already existing after applying taint)
+kubectl taint nodes node01 app=mos:NoExecute-
