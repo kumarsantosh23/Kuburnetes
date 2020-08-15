@@ -88,3 +88,7 @@ kubectl describe nodes master | grep Taint
 kubectl taint nodes node01 spray=mortein:NoSchedule-
 kubectl taint nodes node01 app=mos:NoExecute ( This will terminate the pods if already existing after applying taint)
 kubectl taint nodes node01 app=mos:NoExecute-
+
+Node Affinity
+
+kubectl label  node node01 --color=blue
