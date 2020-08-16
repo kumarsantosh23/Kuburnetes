@@ -89,6 +89,39 @@ kubectl taint nodes node01 spray=mortein:NoSchedule-
 kubectl taint nodes node01 app=mos:NoExecute ( This will terminate the pods if already existing after applying taint)
 kubectl taint nodes node01 app=mos:NoExecute-
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------
 Node Affinity
 
 kubectl label  node node01 --color=blue
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+Resource limits
+
+kubectl get pod elephant -o yaml > ss.yml ( to generate yaml file where pod is already running )
+once yaml file get genrated VI into yaml and change the resourse limit
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+DaemonSets
+
+kubectl get daemonsets --all-namespaces
+kubectl get daemonsets --all-namespaces -o wide
+To create a Daemonset Yaml file follow this below couple of steps ( Since there is no direct imperative command)
+kubectl create deployment elasticsearch --image=k8s.gcr.io/fluentd-elasticsearch:1.20 --dry-run=client -o yaml >ss.yml
+VI into ss.yml file and change Kind from Deployment to DaemonSet and remove replicas and then save it.
+kubectly apply -f ss.yml --namespace=kube-system ( if you want to run it only under namespace or else remove --namespace)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+Static Pods
+ps -aux | grep kubelet
+cat /var/lib/kubelet/config.yaml
+CAT config.yml file and check for staticPdPath
+To Create a Static pod use below imperative command
+kubectl run --restart=Never --image=busybox static-busybox --dry-run=client -o yaml --command -- sleep 1000 > /etc/kubernetes/manifests/static-busybox.yaml
+To delete pod, go to the staticPdPath (/etc/kuburnetes/resources ) and delete the Yaml file
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+To create custom scheduler and run it as static pod
+
+Copy the existing scheduler.yml ( /etc/kuburentes/resorces ) to some location and edit it accordingly
+copy it back to ( /etc/kuburentes/resorces ) so that scheduler will run as static pod
+To use modified scheduler, edit your pod file with  ( schedulerName: my-scheduler )
+check kubectl get events
