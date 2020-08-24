@@ -125,3 +125,21 @@ Copy the existing scheduler.yml ( /etc/kuburentes/resorces ) to some location an
 copy it back to ( /etc/kuburentes/resorces ) so that scheduler will run as static pod
 To use modified scheduler, edit your pod file with  ( schedulerName: my-scheduler )
 check kubectl get events
+
+-------------------------------------------------------------------------------------------
+Metrics
+https://github.com/kodekloudhub/kubernetes-metrics-server.git
+after cloning create pods by kubectl create -f .
+to check metrics
+kubectl get nodes
+kubectl get pods
+
+------------------------------------------------------------------------------------------------
+Application life cycle management
+kubectl get deployments
+kubectl edit deployment fronted ( changet rolling update to recreate)
+Re-create deployment will kill all pods at a time and bring back new pods at a time.
+rolling update will bring down few pods at a time and bring up new pods at a time.
+kubectl rollout undo deployment/nginx
+kubectl rollout status deployment/nginx
+kubectl rollout history deployment/nginx
