@@ -143,3 +143,42 @@ rolling update will bring down few pods at a time and bring up new pods at a tim
 kubectl rollout undo deployment/nginx
 kubectl rollout status deployment/nginx
 kubectl rollout history deployment/nginx
+----------------------------------------------------------------------------------------------------
+CMD vs ENTRY POINT
+Entry point in the docker file refers to run the commands which is mentioned as KEY Value ( JSON) ( ENTRYPOINT ["python, "app.py"] )
+Once Pod is up, it will run python app.py
+Command in the docker file refers to added argument to Entry point ( CMD ["--clour" "green"])
+This above can be updated through defintion yaml file as below, under image
+command: ["python", "app.py"]
+args: ["--color", "pink"]
+
+ENTRYPOINT ( DOCKER) = command ( Kube defintion file )
+CMD ( Docker ) = args ( kube defintion file )
+
+---------------------------------------------------------------------------------------------------------
+ConfigMaps
+Two ways to create configMaps Imperative and Declartive
+Imperative : kubectl create cm webapp_color --from-literal=APP_COLOR=blue
+kubectl get cm
+kubectl describe cm
+Edit the POD Definition yaml file under sepc as
+envFrom:
+  - configMapRef:
+       name: APP_COLOR
+Decleartive : Create config Map definition yaml file see config-map.yml
+kubectl create -f config-map.yml
+---------------------------------------------------------------------------------------------------------
+Secrets
+Two ways to create configMaps Imperative and Declartive
+Imperative:
+kubectl get secrets
+kubectl create secret generic db-secret --from-literal=DB_Host=sql01 --from-literal=DB_User=root --from-literal=DB_Password=password123
+kubectl explain pod --recursive | grep -A8 envFrom ( To get sytnax )
+Edit the POD Definition yaml file under sepc as
+envFrom:
+- secretRef:
+    name: db_secret
+Decleartive : Create config Map definition yaml file see secret-map.yml
+kubectl create -f secret-map.yml
+To print out any logs from the containers inside the pod used below command
+kubectl -n elastic-stack exec -it app cat /log/app.log
