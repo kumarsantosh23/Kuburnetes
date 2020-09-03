@@ -182,3 +182,62 @@ Decleartive : Create config Map definition yaml file see secret-map.yml
 kubectl create -f secret-map.yml
 To print out any logs from the containers inside the pod used below command
 kubectl -n elastic-stack exec -it app cat /log/app.log
+---------------------------------------------------------------------------------------------------------
+UPdagrading cluster wit Kubeadm tool for master and worker node
+
+kubectl drain node01 --ignore-daemonsets ( To send the pods from node01 to other nodes)
+kubectl uncordon node01 ( Once OS is upgraded bringing back node01 back ol, previously evacuated pods won't come again)
+kubectl drain node02 --ignore-daemonsets --force ( Forcefully to delete the pods which doesn't have replicaset)
+kubectl cordon node03 ( this will not delete the running pods from nodes but won't schedule new pods)
+
+Use below commands for upgrading cluster ( Kubeadm upgrade -h)
+apt install kubadm=1.18.0-00
+kubeadm apply upgrade v1.18.0
+apt install kublet=1.18.0-00
+apt install kubadm=1.18.0-00
+kubeadm upgrade node
+apt install kublet=1.18.0-00
+
+ETCD Cluster backup and restore
+
+ETCDCTL_API=3 etcdctl snapshot save --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --endpoints=127.0.0.1:2379 /tmp/snapshot-pre-boot.db
+ETCDCTL_API=3 etcdctl snapshot restore -h
+ETCDCTL_API=3 etcdctl snapshot restore --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --endpoints=127.0.0.1:2379 --data-dir="/var/lib/etcd-frombackup"  --initial-advertise-peer-urls="http://127.0.0.1:2380"  --initial-cluster="master=http://127.0.0.1:2380" --initial-cluster-token="etcd-cluster-v1" --name="master" /tmp/snapshot-pre-boot.db
+---------------------------------------------------------------------------------------------------------
+kubectl get csr
+kubectl certificate approve akshay
+kubectl get csr agent-smith -o yaml
+kubectl certificate deny agent-smith
+cat akshya.cert | base64 ( To encode the cert and place in csr.yml, not recomended to place the cert file directly under yml )
+
+kubectl config --kubeconfig=/root/my-kube-config use-context research
+/root/.kube/config
+
+kubectl get roles --all-namespaces
+kubectl describe role kube-proxy -n kube-system
+kubectl describe rolebinding kube-proxy -n kube-system
+kubectl get pods --as dev-user
+kubectl create -f role.yml
+kubectl create -f role-binding.yml
+kubectl delete roles --all -n blue
+kubectl delete rolebinding --all -n blue
+
+kubectl get clusterroles | wc -l
+kubectl get clusterrolebinding | wc -l
+kubectl auth can-i list nodes --as michelle
+kubectl auth can-i list persistentvolumes --as michelle
+
+kubectl create secret docker-registry private-reg-cred --docker-username=dock_user --docker-password=dock_password --docker-server=myprivateregistry.com:5000 --docker-email=dock_user@myprivateregistry.com
+
+kubectl exec -it ubuntu-sleeper -- date -s '19 APR 2012 11:14:00'
+edit pod-definition yaml under spec condition as below
+securityContext:
+  runAsuser: 1001
+  capabilities:
+    add: ["SYS_TIME"]
+
+kubectl get networkpolicy
+kubectl get persistentvolume
+kubectl get persistentvolumeclaim
+kubectl get storageclasses
+kubectl describe storageclasses
