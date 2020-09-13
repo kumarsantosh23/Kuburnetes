@@ -241,3 +241,36 @@ kubectl get persistentvolume
 kubectl get persistentvolumeclaim
 kubectl get storageclasses
 kubectl describe storageclasses
+
+
+ip link
+ifconfig -a
+Kube-scheduler port number 10251
+ip r ( Routine table)
+etcd port number 2379 ( To listen the control-panel components within cluster) 2380 ( Peer-peer listner if there i another ETCD on another master)
+ps -aux | grep kubelet
+ls -tlr /opt/cni/bin
+ls /etc/cni/net.d/
+cat /etc/cni/net.d/10-weave.conflist
+
+To see the Ip-address range of nodes
+ip addr
+check ens section
+
+to see the Ip-address range for pods
+Ip address for pods gets assigned through any of the network plugin, in this case weave network.
+this network plugin will run as pods, to see the ip address range of pods do this below
+kubectl get -n kube-system logs  weave-net-ncdbb -c weave ( check for ipalloc)
+
+To see the Ip-address range for service
+Services will run accross the clusters, unlike pod where it will run only on any of the node
+this services gets deployed through kube-apiserver, so since kube-apiserver runs as static pod, go through the yaml file to get range
+cat kube-apiserver.yaml ( check for --service-clusterrange )
+
+DNS ( DOMAIN NAME SYSTEM )
+cat /etc/hosts
+cat /etc/resolve.conf ( mention dns name and Ip of DNs server)
+( nameserver 10.10.1.2)
+
+kubectl get ingress --all-namespaces
+kubectl edit --namespace app-space ingress ingress-wear-watch

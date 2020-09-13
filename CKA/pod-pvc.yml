@@ -6,9 +6,6 @@ spec:
   containers:
   - name: event-simulator
     image: kodekloud/event-simulator
-    env:
-    - name: LOG_HANDLERS
-      value: file
     volumeMounts:
     - mountPath: /log
       name: log-volume
